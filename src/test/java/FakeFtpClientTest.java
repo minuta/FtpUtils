@@ -10,7 +10,10 @@ import org.mockftpserver.fake.filesystem.UnixFakeFileSystem;
 
 import java.io.IOException;
 
-public class FtpClientTest {
+/**
+ *  this class tests if the implemented FTP client can work with a FakeFtpServer
+ */
+public class FakeFtpClientTest {
 
     private FakeFtpServer fakeFtpServer;
 
@@ -44,7 +47,6 @@ public class FtpClientTest {
 
     @Test
     public void dummyTest() throws IOException {
-
         ftpClient = new FtpClient(FTP_SERVER, fakeFtpServer.getServerControlPort(), USER, PASS);
         ftpClient.open();
     }

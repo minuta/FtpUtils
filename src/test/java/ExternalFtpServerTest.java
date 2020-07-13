@@ -2,6 +2,9 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+/**
+ *  this class tests if it can open a connection to the running FTP server
+ */
 public class ExternalFtpServerTest {
 
     public static final String USER = "admin";

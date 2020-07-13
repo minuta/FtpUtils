@@ -5,6 +5,9 @@ import org.apache.commons.net.ftp.FTPReply;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+ *  An example implementation of a FTP client via Apache Commons Net Library
+ */
 class FtpClient {
 
     private String server;
