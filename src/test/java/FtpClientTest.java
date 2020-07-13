@@ -33,9 +33,7 @@ public class FtpClientTest {
         fileSystem.add(new FileEntry(USER_HOME + "/" + FTP_FILENAME, FTP_FILENAME_CONTENT));
         fakeFtpServer.setFileSystem(fileSystem);
         fakeFtpServer.setServerControlPort(0);
-
         fakeFtpServer.start();
-
     }
 
     @After
