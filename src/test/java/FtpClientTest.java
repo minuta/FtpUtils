@@ -10,27 +10,32 @@ import org.mockftpserver.fake.filesystem.UnixFakeFileSystem;
 
 import java.io.IOException;
 
-public class FtpClientIntegrationTest {
+public class FtpClientTest {
 
     private FakeFtpServer fakeFtpServer;
 
     private FtpClient ftpClient;
 
+    public static final String USER = "ftpUser";
+    public static final String PASS = "ftpPass";
+    public static final String FTP_SERVER = "localhost";
+    public static final String USER_HOME = "/data";
+    public static final String FTP_FILENAME = "reamde.txt";
+    public static final String FTP_FILENAME_CONTENT = "some dummy content of the readme.txt ...";
+
     @Before
     public void setup() throws IOException {
         fakeFtpServer = new FakeFtpServer();
-        fakeFtpServer.addUserAccount(new UserAccount("user", "password", "/data"));
+        fakeFtpServer.addUserAccount(new UserAccount(USER, PASS, USER_HOME));
 
         FileSystem fileSystem = new UnixFakeFileSystem();
-        fileSystem.add(new DirectoryEntry("/data"));
-        fileSystem.add(new FileEntry("/data/foobar.txt", "abcdef 1234567890"));
+        fileSystem.add(new DirectoryEntry(USER_HOME));
+        fileSystem.add(new FileEntry(USER_HOME + "/" + FTP_FILENAME, FTP_FILENAME_CONTENT));
         fakeFtpServer.setFileSystem(fileSystem);
         fakeFtpServer.setServerControlPort(0);
 
         fakeFtpServer.start();
 
-        ftpClient = new FtpClient("localhost", fakeFtpServer.getServerControlPort(), "user", "password");
-        ftpClient.open();
     }
 
     @After
@@ -40,7 +45,9 @@ public class FtpClientIntegrationTest {
     }
 
     @Test
-    public void dummyTest() {
+    public void dummyTest() throws IOException {
 
+        ftpClient = new FtpClient(FTP_SERVER, fakeFtpServer.getServerControlPort(), USER, PASS);
+        ftpClient.open();
     }
 }
