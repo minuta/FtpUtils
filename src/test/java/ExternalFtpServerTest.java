@@ -1,6 +1,10 @@
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  *  this class tests if it can open a connection to the running FTP server
@@ -11,11 +15,28 @@ public class ExternalFtpServerTest {
     public static final String PASS = "admin";
     public static final String FTP_SERVER = "localhost";
     public static final int PORT = 2121;
+    public static final String FTP_FILENAME = "README.txt";
+    public static final String USER_HOME = "/";
+
+
+    FtpClient ftpClient;
+
+    @Before
+    public void setup() throws IOException {
+        ftpClient = new FtpClient(FTP_SERVER, PORT, USER, PASS);
+        ftpClient.open();
+    }
+
+    @After
+    public void tearDown () throws IOException {
+        ftpClient.close();
+    }
+
 
     @Test
-    public void checkExternalFtpServer() throws IOException {
-        FtpClient ftpClient = new FtpClient(FTP_SERVER, PORT, USER, PASS);
+    public void listFilesTest() throws IOException {
         ftpClient.open();
-
+        List<String> filenameList = ftpClient.listFilenames(USER_HOME);
+        Assert.assertTrue(filenameList.contains(FTP_FILENAME));
     }
 }
