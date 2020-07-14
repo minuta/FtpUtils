@@ -2,6 +2,7 @@ import org.apache.commons.net.PrintCommandListener;
 import org.apache.commons.net.ftp.FTPClient;
 import org.apache.commons.net.ftp.FTPReply;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Arrays;
@@ -48,5 +49,9 @@ class FtpClient {
         return Arrays.asList(ftp.listNames(path));
     }
 
+    void downloadFile(String source, String destination) throws IOException {
+        FileOutputStream out = new FileOutputStream(destination);
+        ftp.retrieveFile(source, out);
+    }
 
 }

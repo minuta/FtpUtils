@@ -9,6 +9,7 @@ import org.mockftpserver.fake.filesystem.FileEntry;
 import org.mockftpserver.fake.filesystem.FileSystem;
 import org.mockftpserver.fake.filesystem.UnixFakeFileSystem;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class FakeFtpClientTest {
     public static final String USER_HOME = "/data";
     public static final String FTP_FILENAME = "readme.txt";
     public static final String FTP_FILENAME_CONTENT = "some dummy content of the readme.txt ...";
+    public static final String DOWNLOADED_FTP_FILE = "downloaded_FTP_file.txt";
 
     @Before
     public void setup() throws IOException {
@@ -53,5 +55,13 @@ public class FakeFtpClientTest {
     public void listFilesTest() throws IOException {
         List<String> filenameList = ftpClient.listFilenames(USER_HOME);
         Assert.assertTrue(filenameList.contains(FTP_FILENAME));
+    }
+
+    @Test
+    public void downloadFileTest() throws IOException {
+        ftpClient.downloadFile(USER_HOME + "/" + FTP_FILENAME, DOWNLOADED_FTP_FILE);
+        Assert.assertTrue((new File(DOWNLOADED_FTP_FILE)).exists());
+
+//        new File(DOWNLOADED_FTP_FILE).delete(); // cleanup
     }
 }
