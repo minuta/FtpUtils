@@ -4,6 +4,8 @@ import org.apache.commons.net.ftp.FTPReply;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *  An example implementation of a FTP client via Apache Commons Net Library
@@ -23,7 +25,7 @@ class FtpClient {
         this.password = password;
     }
 
-    void open() throws IOException {
+    public void open() throws IOException {
         ftp = new FTPClient();
 
         ftp.addProtocolCommandListener(new PrintCommandListener(new PrintWriter(System.out)));
@@ -38,7 +40,13 @@ class FtpClient {
         ftp.login(user, password);
     }
 
-    void close() throws IOException {
+    public void close() throws IOException {
         ftp.disconnect();
     }
+
+    public List<String> listFilenames (String path) throws IOException {
+        return Arrays.asList(ftp.listNames(path));
+    }
+
+
 }
