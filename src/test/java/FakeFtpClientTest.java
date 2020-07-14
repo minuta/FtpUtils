@@ -1,4 +1,5 @@
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockftpserver.fake.FakeFtpServer;
@@ -9,6 +10,7 @@ import org.mockftpserver.fake.filesystem.FileSystem;
 import org.mockftpserver.fake.filesystem.UnixFakeFileSystem;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  *  this class tests if the implemented FTP client can work with a FakeFtpServer
@@ -16,14 +18,13 @@ import java.io.IOException;
 public class FakeFtpClientTest {
 
     private FakeFtpServer fakeFtpServer;
-
     private FtpClient ftpClient;
 
     public static final String USER = "ftpUser";
     public static final String PASS = "ftpPass";
     public static final String FTP_SERVER = "localhost";
     public static final String USER_HOME = "/data";
-    public static final String FTP_FILENAME = "reamde.txt";
+    public static final String FTP_FILENAME = "readme.txt";
     public static final String FTP_FILENAME_CONTENT = "some dummy content of the readme.txt ...";
 
     @Before
@@ -37,6 +38,9 @@ public class FakeFtpClientTest {
         fakeFtpServer.setFileSystem(fileSystem);
         fakeFtpServer.setServerControlPort(0);
         fakeFtpServer.start();
+
+        ftpClient = new FtpClient(FTP_SERVER, fakeFtpServer.getServerControlPort(), USER, PASS);
+        ftpClient.open();
     }
 
     @After
@@ -46,8 +50,8 @@ public class FakeFtpClientTest {
     }
 
     @Test
-    public void dummyTest() throws IOException {
-        ftpClient = new FtpClient(FTP_SERVER, fakeFtpServer.getServerControlPort(), USER, PASS);
-        ftpClient.open();
+    public void listFilesTest() throws IOException {
+        List<String> filenameList = ftpClient.listFilenames(USER_HOME);
+        Assert.assertTrue(filenameList.contains(FTP_FILENAME));
     }
 }
