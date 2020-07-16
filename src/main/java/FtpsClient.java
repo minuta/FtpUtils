@@ -6,10 +6,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class FtpsClient {
-    private String server;
-    private int port;
-    private String user;
-    private String password;
+    private final String server;
+    private final int port;
+    private final String user;
+    private final String password;
     private FTPSClient ftp;
 
     public FtpsClient(String server, int port, String user, String password) {

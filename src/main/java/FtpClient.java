@@ -13,10 +13,10 @@ import java.util.List;
  */
 class FtpClient {
 
-    private String server;
-    private int port;
-    private String user;
-    private String password;
+    private final String server;
+    private final int port;
+    private final String user;
+    private final String password;
     private FTPClient ftp;
 
     public FtpClient(String server, int port, String user, String password) {
