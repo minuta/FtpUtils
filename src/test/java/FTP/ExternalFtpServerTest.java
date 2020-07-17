@@ -1,3 +1,5 @@
+package FTP;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -7,7 +9,8 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- *  this class tests if it can open a connection to the running FTP server
+ *  this class tests if it can open a connection to the locally running FTP server
+ *  (using e.g. the the Apache FTP Server)
  */
 public class ExternalFtpServerTest {
 

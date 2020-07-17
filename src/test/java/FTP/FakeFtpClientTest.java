@@ -1,3 +1,5 @@
+package FTP;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -14,7 +16,7 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- *  this class tests if the implemented FTP client can work with a FakeFtpServer
+ *  testing the FTP client via the Apache MockFtpServer
  */
 public class FakeFtpClientTest {
 

@@ -1,3 +1,5 @@
+package FTPS;
+
 import org.apache.commons.net.PrintCommandListener;
 import org.apache.commons.net.ftp.FTPReply;
 import org.apache.commons.net.ftp.FTPSClient;
@@ -5,6 +7,9 @@ import org.apache.commons.net.ftp.FTPSClient;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+/**
+ *  An example implementation of a FTPS client via Apache Commons Net Library
+ */
 public class FtpsClient {
     private final String server;
     private final int port;
