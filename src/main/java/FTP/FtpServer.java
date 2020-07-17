@@ -45,8 +45,5 @@ public class FtpServer {
         server.stop();
     }
 
-    public static void main(String[] args) throws FtpException {
-        new FtpServer().start();
-    }
 
 }
