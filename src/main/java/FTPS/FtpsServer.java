@@ -13,6 +13,8 @@ public class FtpsServer {
 
     private org.apache.ftpserver.FtpServer server;
 
+    // TODO: make a constructor with the connection-mode (implicite/explicite)
+
     public void start() throws FtpException {
         FtpServerFactory serverFactory = new FtpServerFactory();
         ListenerFactory factory = new ListenerFactory();
@@ -22,17 +24,17 @@ public class FtpsServer {
 
         // define SSL configuration
         SslConfigurationFactory ssl = new SslConfigurationFactory();
-        ssl.setKeystoreFile(new File("src/test/resources/ftpserver.jks"));
+        ssl.setKeystoreFile(new File("src/main/resources/ftpserver.jks"));
         ssl.setKeystorePassword("password");
 
         // set the SSL configuration for the listener
         factory.setSslConfiguration(ssl.createSslConfiguration());
-        factory.setImplicitSsl(true);
+        factory.setImplicitSsl(false);
 
         // replace the default listener
         serverFactory.addListener("default", factory.createListener());
         PropertiesUserManagerFactory userManagerFactory = new PropertiesUserManagerFactory();
-        userManagerFactory.setFile(new File("myusers.properties"));
+        userManagerFactory.setFile(new File("src/main/resources/user.properties"));
         serverFactory.setUserManager(userManagerFactory.createUserManager());
 
         // start the server
