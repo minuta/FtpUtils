@@ -9,6 +9,10 @@ import org.apache.ftpserver.usermanager.PropertiesUserManagerFactory;
 
 import java.io.File;
 
+/**
+ *  An example implementation of a FTPS server using the Apache embedded FTP Server
+ *  The FTPS server is using a self-signed certificate stored in the KEYSTORE_PATH
+ */
 public class FtpsServer {
 
     private org.apache.ftpserver.FtpServer server;
