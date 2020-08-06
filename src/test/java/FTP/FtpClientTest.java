@@ -24,7 +24,7 @@ public class FtpClientTest {
     public static final String ROOT_FILE1 = "file1.txt";
     public static final String ROOT_FILE2 = "file2.txt";
 
-    public static final String FTP_RESOURCES_PATH = new File("src/test/resources").getPath();  // for a Linux/Win compatibility
+    public static final String FTP_RESOURCES_PATH = new File("src/test/resources/FTP_HOME").getPath();  // for a Linux/Win compatibility
 
 
     @BeforeClass
