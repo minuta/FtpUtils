@@ -2,10 +2,13 @@ package FTP;
 
 import org.apache.ftpserver.ftplet.FtpException;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 /**
  *  testing the FTP client via the Apache MINA embedded FTP Server
@@ -17,12 +20,20 @@ public class FtpClientTest {
 
     public static final String USER = "dummyUser";
     public static final String PASS = "dummyPass";
-    public static int PORT = 2221;
+    public static final String DIR_FILE = ".keep";
+    public static final String ROOT_FILE1 = "file1.txt";
+    public static final String ROOT_FILE2 = "file2.txt";
+
+    public static final String FTP_RESOURCES_PATH = new File("src/test/resources").getPath();  // for a Linux/Win compatibility
+
 
     @BeforeClass
-    public static void setup() throws FtpException {
-        ftpServer = new FtpServer();
+    public static void setup() throws FtpException, IOException {
+        ftpServer = new FtpServer(USER, PASS, FTP_RESOURCES_PATH, FtpServer.DEFAULT_PORT);
         ftpServer.start();
+
+        ftpClient = new FtpClient("localhost", FtpServer.DEFAULT_PORT, USER, PASS);
+        ftpClient.open();
     }
 
     @After
@@ -31,9 +42,21 @@ public class FtpClientTest {
         ftpClient.close();
     }
 
+
     @Test
-    public void ftpTest() throws IOException {
-        ftpClient = new FtpClient("localhost", PORT, USER, PASS);
-        ftpClient.open();
+    public void connectionTest() {
+    }
+
+
+    @Test
+    public void listFilesTest() throws IOException {
+
+        List<String> filenameList = ftpClient.listFilenames("");
+        Assert.assertTrue(filenameList.contains(ROOT_FILE1));
+        Assert.assertTrue(filenameList.contains(ROOT_FILE2));
+        Assert.assertFalse(filenameList.contains(DIR_FILE));
+
+        filenameList = ftpClient.listFilenames("DIR1");
+        Assert.assertTrue(filenameList.contains(DIR_FILE));
     }
 }
