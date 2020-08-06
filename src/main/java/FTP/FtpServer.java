@@ -21,13 +21,13 @@ public class FtpServer {
 
     public static final String USER = "dummyUser";
     public static final String PASS = "dummyPass";
-    public static final String HOME = "/tmp";
+    public static final String FTP_HOME = "/tmp";
     public static final int DEFAULT_PORT = 2221;
     public static final String DEFAULT_LISTENER = "default";
 
 
     public FtpServer() {
-        this(USER, PASS, HOME, DEFAULT_PORT);
+        this(USER, PASS, FTP_HOME, DEFAULT_PORT);
     }
 
     public FtpServer(String user, String pass, String homeDir, int port) {
@@ -37,15 +37,18 @@ public class FtpServer {
         this.port = port;
     }
 
+    public void createUser(UserManager userManager, String userName, String userPass, String userHomeDir) throws FtpException {
+        BaseUser user = new BaseUser();
+        user.setName(userName);
+        user.setPassword(userPass);
+        user.setHomeDirectory(userHomeDir);
+        userManager.save(user);
+    }
+
     public void start() throws FtpException {
         PropertiesUserManagerFactory userManagerFactory = new PropertiesUserManagerFactory();
-
         UserManager userManager = userManagerFactory.createUserManager();
-        BaseUser user = new BaseUser();
-        user.setName(this.user);
-        user.setPassword(pass);
-        user.setHomeDirectory(homeDir);
-        userManager.save(user);
+        createUser(userManager, user, pass, homeDir);
 
         ListenerFactory listenerFactory = new ListenerFactory();
         listenerFactory.setPort(port);
