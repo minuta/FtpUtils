@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  *  Testing the FTPS client on the AWE2 FTP Server
  */
-public class AweFtpsServerTest {
+public class ExternalFtpsServerClientTest {
     public static final String USER = "admin";
     public static final String PASS = "admin";
     public static final String FTP_SERVER = "AWE2";
@@ -30,7 +30,7 @@ public class AweFtpsServerTest {
     }
 
     @Test
-    public void dummyTest() {
+    public void connectionTest() {
     }
 
 }
