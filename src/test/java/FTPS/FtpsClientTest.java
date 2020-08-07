@@ -30,10 +30,18 @@ public class FtpsClientTest {
 
     @BeforeClass
     public static void setup() throws FtpException {
-        ftpsServer = new FtpsServer(2221,
+//        ftpsServer = new FtpsServer(2221,
+//                FTPS_SERVER_SETTINGS + File.separator + "ftpserver.jks",
+//                FtpsServer.DEFAULT_PASS,
+//                FTPS_SERVER_SETTINGS + File.separator + "user.properties",
+//                false);
+//        ftpsServer.start();
+        ftpsServer = new FtpsServer(PORT,
                 FTPS_SERVER_SETTINGS + File.separator + "ftpserver.jks",
                 FtpsServer.DEFAULT_PASS,
-                FTPS_SERVER_SETTINGS + File.separator + "user.properties",
+                USER,
+                PASS,
+                FTP_RESOURCES_PATH,
                 false);
         ftpsServer.start();
     }
@@ -44,6 +52,10 @@ public class FtpsClientTest {
 //        ftpsServer.stop();           // this method throws a NullPointerException
 //    }
 
+
+    @Test
+    public void dummy() {
+    }
 
     @Test
     public void connectionTest() throws IOException {
