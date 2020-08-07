@@ -43,7 +43,7 @@ public class FtpsClientTest {
                 PASS,
                 FTP_RESOURCES_PATH,
                 false);
-        ftpsServer.start();
+        ftpsServer.startWithSingleUser();
     }
 
 //    @After
