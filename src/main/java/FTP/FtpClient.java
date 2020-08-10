@@ -2,6 +2,7 @@ package FTP;
 
 import org.apache.commons.net.PrintCommandListener;
 import org.apache.commons.net.ftp.FTPClient;
+import org.apache.commons.net.ftp.FTPFile;
 import org.apache.commons.net.ftp.FTPReply;
 
 import java.io.FileOutputStream;
@@ -49,6 +50,10 @@ class FtpClient {
 
     public List<String> listFilenames (String path) throws IOException {
         return Arrays.asList(ftp.listNames(path));
+    }
+
+    public FTPFile[] listPath(String pathname) throws IOException {
+        return ftp.listFiles(pathname);
     }
 
     void downloadFile(String source, String destination) throws IOException {

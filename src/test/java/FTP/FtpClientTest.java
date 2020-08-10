@@ -1,5 +1,6 @@
 package FTP;
 
+import org.apache.commons.net.ftp.FTPFile;
 import org.apache.ftpserver.ftplet.FtpException;
 import org.junit.After;
 import org.junit.Assert;
@@ -8,6 +9,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -58,5 +60,12 @@ public class FtpClientTest {
 
         filenameList = ftpClient.listFilenames("DIR1");
         Assert.assertTrue(filenameList.contains(DIR_FILE));
+    }
+
+    @Test
+    public void listPathTest() throws IOException {
+        FTPFile[] fileList = ftpClient.listPath("");
+        Boolean foundFilename = Arrays.stream(fileList).anyMatch(entry -> entry.getName().contains("file1.txt"));
+        Assert.assertTrue(foundFilename);
     }
 }
