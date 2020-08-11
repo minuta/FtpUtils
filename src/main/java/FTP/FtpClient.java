@@ -14,7 +14,7 @@ import java.util.List;
 /**
  *  An example implementation of a FTP client via Apache Commons Net Library
  */
-class FtpClient {
+public class FtpClient {
 
     private final String server;
     private final int port;
