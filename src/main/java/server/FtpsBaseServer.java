@@ -1,4 +1,4 @@
-package Base;
+package server;
 
 import org.apache.ftpserver.FtpServerFactory;
 import org.apache.ftpserver.ftplet.FtpException;

@@ -1,4 +1,4 @@
-package Base;
+package server;
 
 import org.apache.ftpserver.FtpServer;
 import org.apache.ftpserver.FtpServerFactory;

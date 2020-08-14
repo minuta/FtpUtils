@@ -1,4 +1,4 @@
-package Base;
+package server;
 
 import FTP.FtpClient;
 import FTP.FtpServer;
