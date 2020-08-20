@@ -7,9 +7,12 @@ import org.junit.Test;
 
 import java.io.IOException;
 
+/**
+ *  Testing the FTPS client on the AWE2 FTP Server
+ */
 public class AweFtpsTest {
-    public static final String USER = "FE73";
-    public static final String PASS = "P4r4kl3t";
+    public static final String USER = "";
+    public static final String PASS = "";
     public static final String FTP_SERVER = "AWE2";
     public static final int PORT = 2221;
 

@@ -1,5 +1,6 @@
-package FTPS;
+package client;
 
+import FTPS.FtpsServer;
 import org.apache.ftpserver.ftplet.FtpException;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -11,6 +12,8 @@ import java.util.List;
 
 /**
  *  testing the FTPS client with the Apache embedded FTP server
+ *
+ *  TODO: not ready yet!
  */
 public class FtpsClientTest {
 
