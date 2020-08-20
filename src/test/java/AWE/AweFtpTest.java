@@ -1,6 +1,8 @@
-package FTP;
+package AWE;
 
+import client.FtpClient;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,6 +19,8 @@ public class AweFtpTest {
     public static final String FTP_SERVER = "AWE2";
     public static final int PORT = 21;
 
+    public static final String FTP_FILENAME = "/home/FE73/file1";
+    public static final String FTP_PATH = "/home/FE73";
 
     FtpClient ftpClient;
 
@@ -35,8 +39,8 @@ public class AweFtpTest {
     @Test
     public void listFilesTest() throws IOException {
         ftpClient.open();
-        List<String> filenameList = ftpClient.listFilenames("/home/FE73");
-        System.out.println(filenameList);
-//        Assert.assertTrue(filenameList.contains(FTP_FILENAME));
+        List<String> filenameList = ftpClient.listFilenames(FTP_PATH);
+        System.out.println("* Listing Home dir: " + filenameList);
+        Assert.assertTrue(filenameList.contains(FTP_FILENAME));
     }
 }
