@@ -1,0 +1,4 @@
+content of file1.txt
+line 1
+line 2
+line 3
