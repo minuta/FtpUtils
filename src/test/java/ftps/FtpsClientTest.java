@@ -1,22 +1,28 @@
-package server;
+package ftps;
 
-import FTPS.FtpsClient;
-import FTPS.FtpsServer;
+import ftp.FtpBaseServer;
 import org.apache.ftpserver.ftplet.FtpException;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import server.FtpsBaseServer;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-public class FtpsBaseServerTest {
+/**
+ *  testing the FTPS client with the Apache embedded FTP server
+ *
+ *  TODO: not ready yet!
+ */
+public class FtpsClientTest {
 
     public static final String USER = "admin";
     public static final String PASS = "admin";
     public static int PORT = 2221;
 
+    static private server.FtpsBaseServer ftpsServer;
     static private FtpsClient ftpsClient;
 
     public static final String DIR_FILE = ".keep";
@@ -28,15 +34,20 @@ public class FtpsBaseServerTest {
 
     @BeforeClass
     public static void setup() throws FtpException {
-        FtpsBaseServer ftpsServer = new FtpsBaseServer(PORT,
+//        ftpsServer = new FtpsServer(2221,
+//                FTPS_SERVER_SETTINGS + File.separator + "ftpserver.jks",
+//                FtpsServer.DEFAULT_PASS,
+//                FTPS_SERVER_SETTINGS + File.separator + "user.properties",
+//                false);
+//        ftpsServer.start();
+        ftpsServer = new FtpsBaseServer(PORT,
                 FTPS_SERVER_SETTINGS + File.separator + "ftpserver.jks",
-                FtpsServer.DEFAULT_PASS,
+                FtpsBaseServer.DEFAULT_PASS,
                 USER,
                 PASS,
                 FTP_RESOURCES_PATH,
                 false);
-        ftpsServer.init();
-        ftpsServer.start();
+//        ftpsServer.startWithSingleUser();
     }
 
 //    @After

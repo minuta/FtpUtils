@@ -1,18 +1,15 @@
-package FTPS;
+package ftps;
 
+import ftp.FtpClient;
 import org.apache.commons.net.PrintCommandListener;
 import org.apache.commons.net.ftp.FTPReply;
 import org.apache.commons.net.ftp.FTPSClient;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.List;
 
-/**
- *  An example implementation of a FTPS client via Apache Commons Net Library
- */
-public class FtpsClient {
+public class FtpsClient extends FtpClient {
+
     private final String server;
     private final int port;
     private final String user;
@@ -20,6 +17,7 @@ public class FtpsClient {
     private FTPSClient ftp;
 
     public FtpsClient(String server, int port, String user, String password) {
+        super(server, port, user, password);
         this.server = server;
         this.port = port;
         this.user = user;
@@ -41,15 +39,4 @@ public class FtpsClient {
         ftp.login(user, password);
     }
 
-    public void listFiles() throws IOException {
-        ftp.listFiles();
-    }
-
-    public List<String> listFilenames (String path) throws IOException {
-        return Arrays.asList(ftp.listNames(path));
-    }
-
-    public void close() throws IOException {
-        ftp.disconnect();
-    }
 }

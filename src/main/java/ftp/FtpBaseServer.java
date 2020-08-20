@@ -1,5 +1,6 @@
-package FTP;
+package ftp;
 
+import org.apache.ftpserver.FtpServer;
 import org.apache.ftpserver.FtpServerFactory;
 import org.apache.ftpserver.ftplet.FtpException;
 import org.apache.ftpserver.ftplet.UserManager;
@@ -10,27 +11,18 @@ import org.apache.ftpserver.usermanager.impl.BaseUser;
 /**
  *  An example implementation of a FTP server using the Apache embedded FTP Server
  */
-public class FtpServer {
+public class FtpBaseServer {
 
-    private org.apache.ftpserver.FtpServer server;
-
-    private final String user;
-    private final String pass;
-    private final String homeDir;
-    private final int port;
-
-    public static final String USER = "dummyUser";
-    public static final String PASS = "dummyPass";
-    public static final String FTP_HOME = "/tmp";
-    public static final int DEFAULT_PORT = 2221;
+    protected FtpServer server;
     public static final String DEFAULT_LISTENER = "default";
+    public static final int DEFAULT_PORT= 21;
 
+    protected String user;
+    protected String pass;
+    protected String homeDir;
+    protected int port;
 
-    public FtpServer() {
-        this(USER, PASS, FTP_HOME, DEFAULT_PORT);
-    }
-
-    public FtpServer(String user, String pass, String homeDir, int port) {
+    public FtpBaseServer(String user, String pass, String homeDir, int port) {
         this.user = user;
         this.pass = pass;
         this.homeDir = homeDir;
@@ -42,10 +34,11 @@ public class FtpServer {
         user.setName(userName);
         user.setPassword(userPass);
         user.setHomeDirectory(userHomeDir);
+        user.setEnabled(true);
         userManager.save(user);
     }
 
-    public void start() throws FtpException {
+    public void init() throws FtpException {
         PropertiesUserManagerFactory userManagerFactory = new PropertiesUserManagerFactory();
         UserManager userManager = userManagerFactory.createUserManager();
         createUser(userManager, user, pass, homeDir);
@@ -58,12 +51,14 @@ public class FtpServer {
         factory.addListener(DEFAULT_LISTENER, listenerFactory.createListener());
 
         server = factory.createServer();
+    }
+
+    public void start() throws FtpException {
         server.start();
     }
 
     public void stop() {
         server.stop();
     }
-
 
 }

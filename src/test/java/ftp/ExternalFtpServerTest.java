@@ -1,4 +1,4 @@
-package client;
+package ftp;
 
 import org.junit.After;
 import org.junit.Assert;

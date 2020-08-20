@@ -1,24 +1,20 @@
-package server;
+package ftps;
 
-import client.FtpsClient;
+import org.apache.ftpserver.ftplet.FtpException;
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
-/**
- *   Integrationtests with an embedded Apache Server.
- *
- *   TODO: setup() in the BeforeClass should be fixed! The implementation is not ready yet!
- */
-public class FptsServerViaUserPropertiesFileTest {
+public class FtpsBaseServerTest {
+
     public static final String USER = "admin";
     public static final String PASS = "admin";
     public static int PORT = 2221;
 
-    static private FtpsBaseServer ftpsServer;
     static private FtpsClient ftpsClient;
 
     public static final String DIR_FILE = ".keep";
@@ -28,16 +24,18 @@ public class FptsServerViaUserPropertiesFileTest {
     public static final String FTP_RESOURCES_PATH = new File("src/test/resources/FTP_HOME").getPath();  // for a Linux/Win compatibility
     public static final String FTPS_SERVER_SETTINGS = new File("src/test/resources/FTPS_SERVER_SETTINGS").getPath();
 
-//    @BeforeClass
-//    public static void setup() throws FtpException {
-//        ftpsServer = new FtpsBaseServer(2221,
-//                FTPS_SERVER_SETTINGS + File.separator + "ftpserver.jks",
-//                FtpsServer.DEFAULT_PASS,
-//                FTPS_SERVER_SETTINGS + File.separator + "user.properties",
-//                false);
-//        ftpsServer.startWithUserPropertiesFile();
-//
-//    }
+    @BeforeClass
+    public static void setup() throws FtpException {
+        server.FtpsBaseServer ftpsServer = new server.FtpsBaseServer(PORT,
+                FTPS_SERVER_SETTINGS + File.separator + "ftpserver.jks",
+                server.FtpsBaseServer.DEFAULT_PASS,
+                USER,
+                PASS,
+                FTP_RESOURCES_PATH,
+                false);
+        ftpsServer.init();
+        ftpsServer.start();
+    }
 
 //    @After
 //    public void teardown() throws IOException {
@@ -62,17 +60,13 @@ public class FptsServerViaUserPropertiesFileTest {
         ftpsClient = new FtpsClient("localhost", PORT, USER, PASS);
         ftpsClient.open();
 
-        System.out.println("Working Directory = " + System.getProperty("user.dir"));
-
-
-        List<String> filenameList = ftpsClient.listFilenames("FTP_HOME");
-        System.out.println(filenameList);
+        List<String> filenameList = ftpsClient.listFilenames("");
         Assert.assertTrue(filenameList.contains(ROOT_FILE1));
-//        Assert.assertTrue(filenameList.contains(ROOT_FILE2));
-//        Assert.assertFalse(filenameList.contains(DIR_FILE));
-//
-//        filenameList = ftpsClient.listFilenames("DIR1");
-//        Assert.assertTrue(filenameList.contains(DIR_FILE));
+        Assert.assertTrue(filenameList.contains(ROOT_FILE2));
+        Assert.assertFalse(filenameList.contains(DIR_FILE));
+
+        filenameList = ftpsClient.listFilenames("DIR1");
+        Assert.assertTrue(filenameList.contains(DIR_FILE));
 
         ftpsClient.close();
 //        ftpsServer.stop();

@@ -1,8 +1,7 @@
-package server;
+package ftp;
 
-import FTP.FtpClient;
-import FTP.FtpServer;
 import org.apache.commons.net.ftp.FTPFile;
+import org.apache.ftpserver.FtpServer;
 import org.apache.ftpserver.ftplet.FtpException;
 import org.junit.After;
 import org.junit.Assert;
@@ -14,7 +13,10 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-public class FtpBaseServerTest {
+/**
+ *  testing the FTP client via the Apache MINA embedded FTP Server
+ */
+public class EmbededFtpServerTest {
 
     static private FtpBaseServer ftpServer;
     static private FtpClient ftpClient;
@@ -30,11 +32,11 @@ public class FtpBaseServerTest {
 
     @BeforeClass
     public static void setup() throws FtpException, IOException {
-        ftpServer = new FtpBaseServer(USER, PASS, FTP_RESOURCES_PATH, FtpServer.DEFAULT_PORT);
+        ftpServer = new FtpBaseServer(USER, PASS, FTP_RESOURCES_PATH, FtpBaseServer.DEFAULT_PORT);
         ftpServer.init();
         ftpServer.start();
 
-        ftpClient = new FtpClient("localhost", FtpServer.DEFAULT_PORT, USER, PASS);
+        ftpClient = new FtpClient("localhost", FtpBaseServer.DEFAULT_PORT, USER, PASS);
         ftpClient.open();
     }
 
@@ -63,9 +65,28 @@ public class FtpBaseServerTest {
     }
 
     @Test
+    public void listFiles2Test() throws IOException {
+        ftpClient.open();
+        List<String> filenameList = ftpClient.listFilenames("DIR1");
+        System.out.println(filenameList);
+//        Assert.assertTrue(filenameList.contains(FTP_FILENAME));
+    }
+
+
+    @Test
     public void listPathTest() throws IOException {
         FTPFile[] fileList = ftpClient.listPath("");
-        boolean foundFilename = Arrays.stream(fileList).anyMatch(entry -> entry.getName().contains("file1.txt"));
+        Boolean foundFilename = Arrays.stream(fileList).anyMatch(entry -> entry.getName().contains("file1.txt"));
         Assert.assertTrue(foundFilename);
+    }
+
+
+    @Test
+    public void listFiles() throws IOException {
+        FTPFile[] fileList = ftpClient.listPath("DIR1");
+        for (FTPFile file: fileList ) {
+            System.out.println(file.getName());
+            System.out.println("RAW String: " + file.getRawListing());
+        }
     }
 }

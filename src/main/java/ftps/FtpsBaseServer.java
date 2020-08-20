@@ -1,5 +1,6 @@
 package server;
 
+import ftp.FtpBaseServer;
 import org.apache.ftpserver.FtpServerFactory;
 import org.apache.ftpserver.ftplet.FtpException;
 import org.apache.ftpserver.ftplet.UserManager;
@@ -13,11 +14,14 @@ import java.io.File;
  *  An example implementation of a FTPS server using the Apache embedded FTP Server
  *  The FTPS server is using a self-signed certificate stored in the KEYSTORE_PATH
  */
-public class FtpsBaseServer extends FtpBaseServer{
+public class FtpsBaseServer extends FtpBaseServer {
 
     private final String keystorePassword;
     private final String keyStorePath;
     public boolean isImplicitMode;
+
+    public static final int DEFAULT_PORT = 2221;
+    public static final String DEFAULT_PASS = "password";  // default keystore password
 
 
 //    public FtpsBaseServer(String user, String pass, String homeDir, int port) {
