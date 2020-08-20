@@ -17,10 +17,10 @@ public class FtpsClient extends FtpClient {
 
     public FtpsClient(String server, int port, String user, String password) {
         super(server, port, user, password);
+        this.server = server;
         this.port = port;
         this.user = user;
         this.password = password;
-        this.server = null;
     }
 
     public void open() throws IOException {
