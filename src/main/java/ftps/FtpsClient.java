@@ -10,18 +10,10 @@ import java.io.PrintWriter;
 
 public class FtpsClient extends FtpClient {
 
-    private final String server;
-    private final int port;
-    private final String user;
-    private final String password;
     private FTPSClient ftp;
 
     public FtpsClient(String server, int port, String user, String password) {
         super(server, port, user, password);
-        this.server = server;
-        this.port = port;
-        this.user = user;
-        this.password = password;
     }
 
     public void open() throws IOException {
@@ -37,6 +29,17 @@ public class FtpsClient extends FtpClient {
         }
 
         ftp.login(user, password);
+    }
+
+    public void close() throws IOException {
+        if (ftp.isConnected()) {
+            try {
+                ftp.disconnect();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+            ftp.disconnect();
+        }
     }
 
     public boolean isClientConnected() {

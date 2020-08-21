@@ -16,10 +16,10 @@ import java.util.List;
  */
 public class FtpClient {
 
-    private final String server;
-    private final int port;
-    private final String user;
-    private final String password;
+    protected String server;
+    protected int port;
+    protected String user;
+    protected String password;
     private FTPClient ftp;
 
     public FtpClient(String server, int port, String user, String password) {
@@ -45,7 +45,14 @@ public class FtpClient {
     }
 
     public void close() throws IOException {
-        ftp.disconnect();
+        if (ftp.isConnected()) {
+            try {
+                ftp.disconnect();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+            ftp.disconnect();
+        }
     }
 
     public List<String> listFilenames (String path) throws IOException {
