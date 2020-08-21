@@ -38,7 +38,7 @@ public class AweFtpTest {
 
     @Test
     public void connectionTest() {
-        Assert.assertTrue(!ftpClient.isClientConnected());
+        Assert.assertTrue(ftpClient.isClientConnected());
     }
 
     @Test

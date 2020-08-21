@@ -27,7 +27,7 @@ public class AweFtpsTest {
 
     @After
     public void tearDown () throws IOException {
-
+        ftpsClient.close();
     }
 
     @Test
