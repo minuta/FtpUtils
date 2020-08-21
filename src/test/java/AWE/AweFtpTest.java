@@ -38,6 +38,7 @@ public class AweFtpTest {
 
     @Test
     public void connectionTest() {
+        Assert.assertTrue(!ftpClient.isClientConnected());
     }
 
     @Test
@@ -47,4 +48,5 @@ public class AweFtpTest {
         System.out.println("* Listing Home dir: " + filenameList);
         Assert.assertTrue(filenameList.contains(FTP_FILENAME));
     }
+
 }

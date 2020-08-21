@@ -56,9 +56,12 @@ public class FtpClient {
         return ftp.listFiles(pathname);
     }
 
-    void downloadFile(String source, String destination) throws IOException {
+    public void downloadFile(String source, String destination) throws IOException {
         FileOutputStream out = new FileOutputStream(destination);
         ftp.retrieveFile(source, out);
     }
 
+    public boolean isClientConnected() {
+        return ftp.isConnected();
+    }
 }

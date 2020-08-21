@@ -2,6 +2,7 @@ package AWE;
 
 import ftps.FtpsClient;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,10 +27,12 @@ public class AweFtpsTest {
 
     @After
     public void tearDown () throws IOException {
+
     }
 
     @Test
     public void connectionTest() {
+        Assert.assertTrue(ftpsClient.isClientConnected());
     }
 
 }

@@ -39,4 +39,7 @@ public class FtpsClient extends FtpClient {
         ftp.login(user, password);
     }
 
+    public boolean isClientConnected() {
+        return ftp.isConnected();
+    }
 }
